@@ -102,4 +102,21 @@
 
   window.addEventListener('load', updateNavHighlight);
   window.addEventListener('scroll', updateNavHighlight);
+
+  const form = document.querySelector('form');
+
+  form && form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const sending = document.querySelector(".loading");
+    sending && (sending.style.display = "block");
+    const msgSent = document.querySelector(".sent-message")
+
+    emailjs.sendForm('service_6ccajh2', 'template_zgu23nc', this)
+    .then(function() {
+        sending && (sending.style.display = "none");
+        msgSent && (msgSent.style.display = "block");
+        form.reset();
+    }, function(error) {});
+  }, true);
 })();
